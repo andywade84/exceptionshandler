@@ -152,18 +152,25 @@ export function getUserDetails() {
   const lineManagerDetails = JSON.parse(
     localStorage.getItem('lineManagerDetails'),
   );
-  updateDetails(userDetails, lineManagerDetails);
   return { userDetails, lineManagerDetails };
 }
 
 export function saveDetailsAndDisplayContent() {
-  // Prevent the default form submission if needed
+  // Object to hold user input values
   saveUserDetails({
     firstName: document.getElementById('userFirstName').value,
     lastName: document.getElementById('userLastName').value,
     managerFirstName: document.getElementById('managerFirstName').value,
     managerEmail: document.getElementById('managerEmail').value,
   });
+  // Retrieve saved details to ensure the updated information is displayed
+  const savedUserDetails = JSON.parse(localStorage.getItem('userDetails'));
+  const savedLineManagerDetails = JSON.parse(
+    localStorage.getItem('lineManagerDetails'),
+  );
+
+  // Update the details on the page with the retrieved, saved details
+  updateDetails(savedUserDetails, savedLineManagerDetails); // Display user and manager details
 
   document.getElementById('detailsForm').style.display = 'none';
   document.getElementById('mainContent').style.display = 'block';
