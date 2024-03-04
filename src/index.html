@@ -48,6 +48,38 @@ intro:
     Add Time Exception
   </button>
   <div id="timeExceptionForm" class="mt-4 space-y-4" style="display: none">
+    <div class="grid w-[40rem] grid-cols-2 gap-2 rounded-xl bg-gray-200 p-2">
+      <div>
+        <input
+          id="punchTypeIn"
+          name="punchType"
+          type="radio"
+          value="In"
+          class="hidden peer"
+          checked
+        />
+        <label
+          for="punchTypeIn"
+          class="block p-2 text-center bg-blue-300 cursor-pointer select-none rounded-xl peer-checked:bg-green-500 peer-checked:font-bold peer-checked:text-white"
+          >In</label
+        >
+      </div>
+
+      <div>
+        <input
+          id="punchTypeOut"
+          name="punchType"
+          type="radio"
+          value="Out"
+          class="hidden peer"
+        />
+        <label
+          for="punchTypeOut"
+          class="block p-2 text-center bg-blue-300 cursor-pointer select-none rounded-xl peer-checked:bg-green-500 peer-checked:font-bold peer-checked:text-white"
+          >Out</label
+        >
+      </div>
+    </div>
     <textarea
       id="exceptionReason"
       placeholder="Enter reason for time exception"
@@ -60,7 +92,20 @@ intro:
       Submit
     </button>
   </div>
-  <ul id="timeExceptionList" class="pl-5 list-disc"></ul>
+
+  <template id="timeExceptionTemplate">
+    <li class="flex items-center justify-between p-2 bg-gray-100 rounded">
+      <span class="exceptionText"></span>
+      <!-- Placeholder for the time exception text -->
+      <button
+        class="px-2 py-1 font-bold text-white bg-red-500 rounded deleteExceptionBtn hover:bg-red-700"
+      >
+        Remove
+      </button>
+    </li>
+  </template>
+
+  <ul id="timeExceptionList" class="space-y-2 list-disc"></ul>
   <button
     id="downloadExceptionsBtn"
     class="px-4 py-2 font-bold text-white bg-purple-500 rounded hover:bg-purple-700"

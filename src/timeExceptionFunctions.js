@@ -2,14 +2,25 @@
 
 // Define addTimeException function
 export function addTimeException() {
-  var reason = document.getElementById('exceptionReason').value;
-  if (reason) {
-    saveTimeException(reason); // Assumes saveTimeException is defined elsewhere
-    updateUI();
+  const reason = document.getElementById('exceptionReason').value;
+  let punchType;
+  const punchTypeElements = document.getElementsByName('punchType');
+  for (const element of punchTypeElements) {
+    if (element.checked) {
+      punchType = element.value;
+      break;
+    }
+  }
+
+  if (reason && punchType) {
+    saveTimeException(reason, punchType); // Pass both reason and punchType to the save function
+    updateUI(); // Refresh the list of time exceptions displayed on the page
+    // Reset form fields and hide the form, as before
     document.getElementById('exceptionReason').value = '';
+    document.getElementById('punchTypeOut').checked = true; // Reset punch type to 'Out'
     document.getElementById('timeExceptionForm').style.display = 'none';
   } else {
-    alert('Please enter a reason for the time exception.');
+    alert('Please enter a reason and select a punch type.');
   }
 }
 
@@ -22,23 +33,41 @@ export function updateDetails(user, manager) {
 
 // Define updateUI function
 export function updateUI() {
-  var timeExceptions = getTimeExceptions(); // Function from previous steps
-  var listElement = document.getElementById('timeExceptionList');
+  const timeExceptions = getTimeExceptions(); // Function from previous steps
+  const listElement = document.getElementById('timeExceptionList');
+  const template = document.getElementById('timeExceptionTemplate').content;
+
   listElement.innerHTML = ''; // Clear existing items
-  timeExceptions.forEach(function (exception) {
-    var date = new Date(exception.timestamp); // Convert the timestamp to a Date object
-    var dateString = date.toLocaleString('en-US', {
+
+  timeExceptions.forEach((exception, index) => {
+    const clone = document.importNode(template, true); // Clone the template
+    var date = new Date(exception.timestamp);
+    var dateString = date.toLocaleDateString('en-GB', {
       year: 'numeric',
       month: 'numeric',
       day: 'numeric',
+    });
+    var timeString = date.toLocaleTimeString('en-GB', {
       hour: '2-digit',
       minute: '2-digit',
-    }); // Convert the Date object to a readable string without seconds
+    });
+    clone.querySelector('.exceptionText').textContent =
+      `${dateString} : Punched ${exception.punchType}: ${timeString} , Reason: ${exception.reason}`; // Set the exception text
 
-    var listItem = document.createElement('li');
-    listItem.textContent = `${dateString} - ${exception.reason}`; // Use the readable date string without seconds
-    listElement.appendChild(listItem);
+    const deleteBtn = clone.querySelector('.deleteExceptionBtn');
+    deleteBtn.onclick = () => {
+      removeTimeException(index); // Remove the exception when button is clicked
+      updateUI(); // Re-render the UI to reflect the updated list
+    };
+
+    listElement.appendChild(clone); // Add the filled template to the list
   });
+}
+
+export function removeTimeException(index) {
+  let timeExceptions = getTimeExceptions(); // Retrieve the current list of exceptions
+  timeExceptions.splice(index, 1); // Remove the exception at the specified index
+  localStorage.setItem('timeExceptions', JSON.stringify(timeExceptions)); // Update the list in localStorage
 }
 
 export function generateMailtoLink() {
@@ -56,14 +85,16 @@ export function generateMailtoLink() {
   // Append each time exception to the email body
   timeExceptions.forEach(function (exception) {
     var date = new Date(exception.timestamp);
-    var dateString = date.toLocaleString('en-US', {
+    var dateString = date.toLocaleDateString('en-GB', {
       year: 'numeric',
       month: 'numeric',
       day: 'numeric',
+    });
+    var timeString = date.toLocaleTimeString('en-GB', {
       hour: '2-digit',
       minute: '2-digit',
     });
-    emailBody += `Date: ${dateString}, Reason: ${exception.reason}\n`; // Add time exception details
+    emailBody += `${dateString} : Punched ${exception.punchType}: ${timeString} , Reason: ${exception.reason}\n`; // Add time exception details
   });
 
   // Sign off with the user's name
@@ -77,16 +108,18 @@ export function generateMailtoLink() {
   mailtoLink.href = `mailto:${lineManagerDetails.email}?subject=Time Exceptions&body=${emailBody}`; // Set the href attribute with the line manager's email and the constructed email body
 }
 
-export function saveTimeException(reason) {
+export function saveTimeException(reason, punchType) {
+  // Now accepts punchType as an argument
   var currentTime = new Date().toISOString(); // Get current time in ISO format
   var timeExceptions = JSON.parse(
     localStorage.getItem('timeExceptions') || '[]',
   ); // Get existing exceptions or initialize an empty array
 
-  // Create a new time exception object
+  // Create a new time exception object including punchType
   var newException = {
     timestamp: currentTime,
     reason: reason,
+    punchType: punchType, // Include the punch type in the new exception
   };
 
   // Add the new exception to the array
