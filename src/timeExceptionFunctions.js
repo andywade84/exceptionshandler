@@ -38,8 +38,8 @@ export function setDefaultPunchType() {
 
 export function updateDetails(user, manager) {
   var detailsPanel = document.getElementById('detailsPanel');
-  var content = `<p>${user.firstName} ${user.lastName}</p>`;
-  content += `<p> Reporting to: ${manager.firstName} ${manager.email}</p>`;
+  var content = `<p class="text-lg font-bold">${user.firstName} ${user.lastName}</p>`;
+  content += `<p> Reporting to: </br> <span class="font-bold">${manager.firstName}</span> (${manager.email})</p>`;
   detailsPanel.innerHTML = content;
 }
 
@@ -156,11 +156,11 @@ export function downloadTimeExceptions() {
 
   // Start CSV content with column headers
   var csvContent = 'data:text/csv;charset=utf-8,';
-  csvContent += 'Timestamp,Reason\n'; // Column headers
+  csvContent += 'Timestamp,Type,Reason\n'; // Column headers
 
   // Add data rows for each time exception
   timeExceptions.forEach(function (exception) {
-    var row = `"${exception.timestamp}","${exception.reason}"`; // Encapsulate fields in quotes to handle commas and line breaks within fields
+    var row = `"${exception.timestamp}","${exception.punchType}","${exception.reason}"`; // Encapsulate fields in quotes to handle commas and line breaks within fields
     csvContent += row + '\n';
   });
 

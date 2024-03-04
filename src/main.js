@@ -70,6 +70,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document
     .getElementById('emailExceptionsBtn')
     .addEventListener('click', generateMailtoLink);
+  document.getElementById('resetAppBtn').addEventListener('click', function () {
+    localStorage.clear();
+    location.reload();
+  });
   // Additional setup can go here
 });
 
