@@ -93,7 +93,7 @@ export function generateMailtoLink() {
   // Construct the email body
   var emailBody = `Hi ${lineManagerDetails.firstName},\n\n`; // Greeting the line manager
   emailBody +=
-    'Please See below for details of exceptions I have created punching in early, or out late, and the reasons for them:\n\n';
+    'Please see below for details of exceptions I have created punching in early, or out late, and the reasons for them:\n\n';
 
   // Append each time exception to the email body
   timeExceptions.forEach(function (exception) {
@@ -115,10 +115,10 @@ export function generateMailtoLink() {
 
   // Encode the email body to make it URL-safe
   emailBody = encodeURIComponent(emailBody);
-
+  var subject = 'Punch In/Out Exceptions';
   // Construct the mailto link and set it on the email button
   var mailtoLink = document.getElementById('emailExceptionsBtn'); // The anchor element with id 'emailExceptionsBtn'
-  mailtoLink.href = `mailto:${lineManagerDetails.email}?subject=Time Exceptions&body=${emailBody}`; // Set the href attribute with the line manager's email and the constructed email body
+  mailtoLink.href = `mailto:${lineManagerDetails.email}?subject=${subject}&body=${emailBody}`; // Set the href attribute with the line manager's email and the constructed email body
 }
 
 export function saveTimeException(reason, punchType) {
