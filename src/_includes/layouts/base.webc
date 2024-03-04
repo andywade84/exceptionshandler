@@ -25,10 +25,7 @@
   </head>
   <body class="min-h-screen bg-white" data-env="{{ node.env }}">
 
-
     <div class="py-10" @html="content"></div>
-
-
 
     <script type="module" src="/main.js" webc:keep></script>
   </body>

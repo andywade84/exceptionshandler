@@ -5,6 +5,7 @@ import persist from '@alpinejs/persist';
 import {
   addTimeException,
   getUserDetails,
+  updateDetails,
   updateUI,
   downloadTimeExceptions,
   generateMailtoLink,
@@ -78,6 +79,7 @@ export function initializePage() {
     document.getElementById('detailsForm').style.display = 'none';
     document.getElementById('mainContent').style.display = 'block';
     updateUI();
+    updateDetails(userDetails, lineManagerDetails);
   } else {
     document.getElementById('detailsForm').style.display = 'block';
     document.getElementById('mainContent').style.display = 'none';

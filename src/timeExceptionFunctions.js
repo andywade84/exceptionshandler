@@ -13,6 +13,13 @@ export function addTimeException() {
   }
 }
 
+export function updateDetails(user, manager) {
+  var detailsPanel = document.getElementById('detailsPanel');
+  var content = `<p>${user.firstName} ${user.lastName}</p>`;
+  content += `<p> Reporting to: ${manager.firstName} ${manager.email}</p>`;
+  detailsPanel.innerHTML = content;
+}
+
 // Define updateUI function
 export function updateUI() {
   var timeExceptions = getTimeExceptions(); // Function from previous steps
