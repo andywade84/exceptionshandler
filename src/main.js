@@ -61,6 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('addExceptionBtn').addEventListener('click', () => {
     document.getElementById('timeExceptionForm').style.display = 'block';
   });
+  document.getElementById('closeExceptionBtn').addEventListener('click', () => {
+    document.getElementById('timeExceptionForm').style.display = 'none';
+  });
   document
     .getElementById('submitExceptionBtn')
     .addEventListener('click', addTimeException);
