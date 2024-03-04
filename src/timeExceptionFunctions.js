@@ -152,6 +152,7 @@ export function getUserDetails() {
   const lineManagerDetails = JSON.parse(
     localStorage.getItem('lineManagerDetails'),
   );
+  updateDetails(userDetails, lineManagerDetails);
   return { userDetails, lineManagerDetails };
 }
 
@@ -163,6 +164,7 @@ export function saveDetailsAndDisplayContent() {
     managerFirstName: document.getElementById('managerFirstName').value,
     managerEmail: document.getElementById('managerEmail').value,
   });
+
   document.getElementById('detailsForm').style.display = 'none';
   document.getElementById('mainContent').style.display = 'block';
 }
