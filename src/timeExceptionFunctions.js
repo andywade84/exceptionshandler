@@ -17,10 +17,22 @@ export function addTimeException() {
     updateUI(); // Refresh the list of time exceptions displayed on the page
     // Reset form fields and hide the form, as before
     document.getElementById('exceptionReason').value = '';
-    document.getElementById('punchTypeOut').checked = true; // Reset punch type to 'Out'
+    setDefaultPunchType();
     document.getElementById('timeExceptionForm').style.display = 'none';
   } else {
     alert('Please enter a reason and select a punch type.');
+  }
+}
+
+export function setDefaultPunchType() {
+  const currentTime = new Date(); // Get the current time
+  const hour = currentTime.getHours(); // Extract the hour (0-23)
+
+  // If it's before midday (12:00), default to "In", otherwise default to "Out"
+  if (hour < 12) {
+    document.getElementById('punchTypeIn').checked = true;
+  } else {
+    document.getElementById('punchTypeOut').checked = true;
   }
 }
 
@@ -33,6 +45,7 @@ export function updateDetails(user, manager) {
 
 // Define updateUI function
 export function updateUI() {
+  setDefaultPunchType();
   const timeExceptions = getTimeExceptions(); // Function from previous steps
   const listElement = document.getElementById('timeExceptionList');
   const template = document.getElementById('timeExceptionTemplate').content;
