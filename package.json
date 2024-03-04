@@ -1,6 +1,6 @@
 {
-  "name": "11st-starter-kit",
-  "description": "11ty, powered by Vite with Tailwind CSS and Alpine.js.",
+  "name": "Exceptions Manager",
+  "description": "A Basic Tool to help with managing punching in and out exceptions.",
   "version": "3.0.0",
   "engines": {
     "node": "18.x.x",
@@ -9,7 +9,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:stefanfrede/11st-starter-kit.git"
+    "url": "git@github.com/andywade84/exceptionshandler.git"
   },
   "keywords": [
     "alpinejs",
