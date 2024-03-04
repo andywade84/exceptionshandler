@@ -2,7 +2,14 @@ import './styles/main.css';
 
 import Alpine from 'alpinejs';
 import persist from '@alpinejs/persist';
-
+import {
+  addTimeException,
+  getUserDetails,
+  updateUI,
+  downloadTimeExceptions,
+  generateMailtoLink,
+  saveDetailsAndDisplayContent,
+} from './timeExceptionFunctions.js';
 window.Alpine = Alpine;
 
 Alpine.plugin(persist);
@@ -43,4 +50,36 @@ if ('serviceWorker' in navigator && env === 'production') {
       console.error('Service worker registration failed: ', error);
     }
   });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initializePage();
+  document
+    .getElementById('saveDetailsBtn')
+    .addEventListener('click', saveDetailsAndDisplayContent);
+  document.getElementById('addExceptionBtn').addEventListener('click', () => {
+    document.getElementById('timeExceptionForm').style.display = 'block';
+  });
+  document
+    .getElementById('submitExceptionBtn')
+    .addEventListener('click', addTimeException);
+  document
+    .getElementById('downloadExceptionsBtn')
+    .addEventListener('click', downloadTimeExceptions);
+  document
+    .getElementById('emailExceptionsBtn')
+    .addEventListener('click', generateMailtoLink);
+  // Additional setup can go here
+});
+
+export function initializePage() {
+  const { userDetails, lineManagerDetails } = getUserDetails();
+  if (userDetails && lineManagerDetails) {
+    document.getElementById('detailsForm').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+    updateUI();
+  } else {
+    document.getElementById('detailsForm').style.display = 'block';
+    document.getElementById('mainContent').style.display = 'none';
+  }
 }

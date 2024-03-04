@@ -1,0 +1,78 @@
+---
+layout: 'layouts/home.webc'
+title: 'Home'
+meta:
+  desc:
+    '11st-Starter-Kit is a minimal starting point for building static websites
+    with 11ty, powered by Vite with Tailwind CSS and Alpine.js.'
+intro:
+  title: 'Exceptions Manager'
+---
+
+<div id="detailsForm" class="space-y-4">
+  <input
+    type="text"
+    id="userFirstName"
+    placeholder="Your First Name"
+    class="block w-full mt-1 text-gray-700 border-gray-300 rounded-md shadow-sm input focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+  />
+  <input
+    type="text"
+    id="userLastName"
+    placeholder="Your Last Name"
+    class="block w-full mt-1 text-gray-700 border-gray-300 rounded-md shadow-sm input focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+  />
+  <input
+    type="text"
+    id="managerFirstName"
+    placeholder="Manager's First Name"
+    class="block w-full mt-1 text-gray-700 border-gray-300 rounded-md shadow-sm input focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+  />
+  <input
+    type="email"
+    id="managerEmail"
+    placeholder="Manager's Email"
+    class="block w-full mt-1 text-gray-700 border-gray-300 rounded-md shadow-sm input focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+  />
+  <button
+    id="saveDetailsBtn"
+    class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
+  >
+    Save Details
+  </button>
+</div>
+
+<div id="mainContent" class="mt-8 space-y-4" style="display: none">
+  <button
+    id="addExceptionBtn"
+    class="px-4 py-2 font-bold bg-green-500 rounded hover:bg-green-700"
+  >
+    Add Time Exception
+  </button>
+  <div id="timeExceptionForm" class="mt-4 space-y-4" style="display: none">
+    <textarea
+      id="exceptionReason"
+      placeholder="Enter reason for time exception"
+      class="block w-full h-24 mt-1 text-gray-700 border-gray-300 rounded-md shadow-sm textarea focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+    ></textarea>
+    <button
+      id="submitExceptionBtn"
+      class="px-4 py-2 font-bold bg-blue-500 rounded hover:bg-blue-700"
+    >
+      Submit
+    </button>
+  </div>
+  <ul id="timeExceptionList" class="pl-5 list-disc"></ul>
+  <button
+    id="downloadExceptionsBtn"
+    class="px-4 py-2 font-bold bg-purple-500 rounded hover:bg-purple-700"
+  >
+    Download Exceptions
+  </button>
+  <a
+    id="emailExceptionsBtn"
+    href="#"
+    class="inline-block px-4 py-2 font-bold bg-red-500 rounded hover:bg-red-700"
+    >Email List</a
+  >
+</div>
