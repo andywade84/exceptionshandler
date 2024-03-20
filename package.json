@@ -62,7 +62,7 @@
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.21.3",
     "@babel/eslint-parser": "^7.15.8",
-    "@babel/preset-env": "^7.16.5",
+    "@babel/preset-env": "^7.24.3",
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
     "@tailwindcss/forms": "^0.5.7",
